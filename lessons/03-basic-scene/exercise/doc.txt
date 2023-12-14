@@ -1,0 +1,12 @@
+npm init -y
+-- initiate new nodejs project, auto create package.json file
+
+-- replace scripts in package.json to let npm run directly
+from terminal
+-- eg npm run dev where dev is actually stuff in scripts section
+in package.json
+
+-- build command will output final version of website
+
+
+
