@@ -54,7 +54,7 @@ gui
     .min(1)
     .max(20)
     .step(1)
-    .onFinishChange(() =>
+    .onChange(() =>
     {
         mesh.geometry.dispose()
         mesh.geometry = new THREE.BoxGeometry(

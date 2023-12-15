@@ -52,6 +52,8 @@ const doorColorTexture = textureLoader.load('./textures/door/color.jpg')
 const doorAlphaTexture = textureLoader.load('./textures/door/alpha.jpg')
 const matcapTexture = textureLoader.load('./textures/matcaps/1.png')
 const gradientTexture = textureLoader.load('./textures/gradients/3.jpg')
+const doorAmbientOcclusionTexture = textureLoader.load('./textures/door/ambientOcclusion.jpg')
+const doorHeightTexture = textureLoader.load('./textures/door/height.jpg')
 
 // Objects
 // const material = new THREE.MeshBasicMaterial()
@@ -83,23 +85,27 @@ const gradientTexture = textureLoader.load('./textures/gradients/3.jpg')
 
 // MeshStandardMaterial
 const material = new THREE.MeshStandardMaterial()
-material.metalnes = 0.45
+material.metalness = 0.45
 material.roughness = 0.45
-material.side = THREE.DoubleSide
+material.map = doorColorTexture
+material.aoMap = doorAmbientOcclusionTexture
+material.aoMapIntensity = 1
+material.displacementMap = doorHeightTexture
+material.displacementScale = 0.1
 
 const sphere = new THREE.Mesh(
-    new THREE.SphereGeometry(0.1, 16, 16),
+    new THREE.SphereGeometry(0.5, 64, 64),
     material
 )
 sphere.position.x = -1.5
 
 const plane = new THREE.Mesh(
-    new THREE.PlaneGeometry(1, 1),
+    new THREE.PlaneGeometry(1, 1, 100, 100),
     material
 )
 
 const torus = new THREE.Mesh(
-    new THREE.TorusGeometry(0.3, 0.2, 16, 32),
+    new THREE.TorusGeometry(0.3, 0.2, 64, 128),
     material
 )
 torus.position.x = 1.5
@@ -134,9 +140,7 @@ controls.enableDamping = true
 /**
  * Renderer
  */
-const renderer = new THREE.WebGLRenderer({
-    canvas: canvas
-})
+const renderer = new THREE.WebGLRenderer({canvas: canvas})
 renderer.setSize(sizes.width, sizes.height)
 renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2))
 
@@ -169,3 +173,7 @@ const tick = () =>
 }
 
 tick()
+
+
+
+
