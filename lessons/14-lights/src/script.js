@@ -21,14 +21,39 @@ const scene = new THREE.Scene()
 // scene.add(ambientLight)
 
 // Directional light
-const directionalLight = new THREE.DirectionalLight(0x00fffc, 0.9)
-scene.add(directionalLight)
+// const directionalLight = new THREE.DirectionalLight(0x00fffc, 0.9)
+// directionalLight.position.set(1, 0.25, 0)
+// scene.add(directionalLight)
 
-const pointLight = new THREE.PointLight(0xffffff, 50)
-pointLight.position.x = 2
-pointLight.position.y = 3
-pointLight.position.z = 4
-scene.add(pointLight)
+// Hemisphere Light
+// different light between above and below
+const hemisphereLight = new THREE.HemisphereLight(0xff0000, 0x0000ff, 0.9)
+scene.add(hemisphereLight)
+
+// Point Light
+// const pointLight = new THREE.PointLight(0xff900, 1.5)
+// scene.add(pointLight)
+
+// Rect Area Light
+// light in a rectangular area
+// const rectAreaLight = new THREE.RectAreaLight(0x4e00ff, 6, 1, 1)
+// rectAreaLight.position.set(- 1.5, 0, 1.5)
+// rectAreaLight.lookAt(new THREE.Vector3())
+// scene.add(rectAreaLight)
+
+// Spot Light
+// const spotLight = new THREE.SpotLight(0x78ff00, 4.5, 10, Math.PI * 0.1, 0.25, 1)
+// spotLight.position.set(0,2,3)
+// scene.add(spotLight)
+
+const hemisphereLightHelper = new THREE.HemisphereLightHelper(hemisphereLightHelper, 0.2)
+scene.add(hemisphereLightHelper)
+
+// const pointLight = new THREE.PointLight(0xffffff, 50)
+// pointLight.position.x = 2
+// pointLight.position.y = 3
+// pointLight.position.z = 4
+// scene.add(pointLight)
 
 /**
  * Objects
