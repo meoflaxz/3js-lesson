@@ -15,6 +15,15 @@ const canvas = document.querySelector('canvas.webgl')
 const scene = new THREE.Scene()
 
 /**
+ * Textures
+ */
+// shadow using this way is just basically a jpeg, not dynamic
+const textureLoader = new THREE.TextureLoader()
+const bakedShadow = textureLoader.load('textures/bakedShadow.jpg')
+const simpleShadow = textureLoader.load('textures/simpleShadow.jpg')
+bakedShadow.colorSpace = THREE.SRGBColorSpace
+
+/**
  * Lights
  */
 // Ambient light
@@ -30,6 +39,27 @@ gui.add(directionalLight.position, 'x').min(- 5).max(5).step(0.001)
 gui.add(directionalLight.position, 'y').min(- 5).max(5).step(0.001)
 gui.add(directionalLight.position, 'z').min(- 5).max(5).step(0.001)
 scene.add(directionalLight)
+// cast shadow from light
+directionalLight.castShadow = true
+// set near and far
+directionalLight.shadow.camera.near = 1
+directionalLight.shadow.camera.far = 6
+// shadow blur radius
+directionalLight.shadow.radius = 10
+// set how far camera can see
+directionalLight.shadow.camera.top = 2
+directionalLight.shadow.camera.right = 2
+directionalLight.shadow.camera.bottom = -2
+directionalLight.shadow.camera.left = -2
+// increase shadow size (power of 2)
+directionalLight.shadow.mapSize.width = 1024
+directionalLight.shadow.mapSize.height = 1024
+
+const directionalLightCameraHelper = new
+THREE.CameraHelper(directionalLight.shadow.camera)
+scene.add(directionalLightCameraHelper)
+// set visibility of camerahelper
+directionalLightCameraHelper.visible = false
 
 /**
  * Materials
@@ -47,14 +77,30 @@ const sphere = new THREE.Mesh(
     material
 )
 
+// map bakedshadow(jpeg) to plane as a texture
 const plane = new THREE.Mesh(
     new THREE.PlaneGeometry(5, 5),
+    // new THREE.MeshBasicMaterial({
+    //     map: bakedShadow
+    // }),
     material
 )
 plane.rotation.x = - Math.PI * 0.5
 plane.position.y = - 0.5
 
-scene.add(sphere, plane)
+
+const sphereShadow = new THREE.Mesh(
+    new THREE.PlaneGeometry(1.5, 1.5),
+    new THREE.MeshBasicMaterial({
+        color: 0x000000,
+        transparent: true,
+        alphaMap: simpleShadow
+    })
+)
+sphereShadow.rotation.x = - Math.PI * 0.5
+sphereShadow.position.y = plane.position.y + 0.01
+
+scene.add(sphere, plane, sphereShadow)
 
 /**
  * Sizes
@@ -101,6 +147,13 @@ const renderer = new THREE.WebGLRenderer({
 })
 renderer.setSize(sizes.width, sizes.height)
 renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2))
+// renderer.shadowMap.enabled = true
+// default shadow renderer is PCFShadowMap, but can use PCFSoftShadowMap to better quality
+// be aware PCFSoftShadow do not work with radius property
+renderer.shadowMap.type = THREE.PCFSoftShadowMap
+// renderer for sphere and receiver
+sphere.castShadow = true
+plane.receiveShadow = true
 
 /**
  * Animate
@@ -110,6 +163,16 @@ const clock = new THREE.Clock()
 const tick = () =>
 {
     const elapsedTime = clock.getElapsedTime()
+
+     // Update the sphere
+     sphere.position.x = Math.cos(elapsedTime) * 1.5
+     sphere.position.z = Math.sin(elapsedTime) * 1.5
+     sphere.position.y = Math.abs(Math.sin(elapsedTime * 3))
+ 
+     // Update the shadow
+     sphereShadow.position.x = sphere.position.x
+     sphereShadow.position.z = sphere.position.z
+     sphereShadow.material.opacity = (1 - sphere.position.y) * 0.3
 
     // Update controls
     controls.update()
