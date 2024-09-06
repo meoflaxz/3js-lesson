@@ -8,7 +8,7 @@ export default function CustomObject()
     
     const positions = useMemo(() =>
     {
-        const positions = new Float32Array(verticesCount * 3)
+        const positions = new Float32Array(verticesCount * 10)
 
         for (let i = 0; i < verticesCount * 3; i++)
             positions[i] = (Math.random() - 0.5) * 3
