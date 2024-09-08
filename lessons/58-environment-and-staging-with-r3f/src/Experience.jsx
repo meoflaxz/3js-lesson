@@ -1,5 +1,5 @@
 import { useFrame } from '@react-three/fiber'
-import { SoftShadows, BakeShadows, useHelper, OrbitControls } from '@react-three/drei'
+import { RandomizedLight, AccumulativeShadows, SoftShadows, BakeShadows, useHelper, OrbitControls } from '@react-three/drei'
 import { useRef } from 'react'
 import { Perf } from 'r3f-perf'
 import * as THREE from 'three'
@@ -16,7 +16,7 @@ export default function Experience()
     })
 
     return <>
-        <SoftShadows size={25} samples={10} focus={0}/>
+        {/* <SoftShadows size={25} samples={10} focus={0}/> */}
         
         <color args={['ivory']} attach={'background'}/>
 
@@ -35,6 +35,21 @@ export default function Experience()
             shadow-camera-right={ 5 }
             shadow-camera-bottom={ 5 }
             shadow-camera-left={ 5 }/>
+        <AccumulativeShadows
+            position={[0, - 0.99, 0]}
+            scale={10}
+            color="#316d39"
+            opacity={ 0.8 }
+            frames={ 100 }
+            >
+                <RandomizedLight
+                    position={[1, 2, 3]}
+                    amount={ 8 }
+                    radius={ 1 }
+                    ambient={ 0.5 }
+                    intensity={ 3 }
+                    bias={ 0.001 }/>             
+        </AccumulativeShadows>
         <ambientLight intensity={ 5 } />
 
         <mesh castShadow position-x={ - 2 }>
