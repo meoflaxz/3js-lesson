@@ -7,8 +7,8 @@ import * as THREE from 'three'
 const root = ReactDOM.createRoot(document.querySelector('#root'))
 
 root.render(
-    <Canvas
-        shadows
+    <Canvas 
+        shadows = { false }
         camera={ {
             fov: 45,
             near: 0.1,
