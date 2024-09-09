@@ -40,15 +40,20 @@ export default function Experience()
     return <>
 
         <Environment
-            background>
-            <color args={ [ 'blue' ] } attach="background" />
+            preset='sunset'
+            ground={{
+                height: 7,
+                radius: 28,
+                scale: 100
+            }}>
+            {/* <color args={ [ 'blue' ] } attach="background" />
                 <mesh position-z={ - 5 } scale={ 10 }>
                     <planeGeometry />
                     <meshBasicMaterial color="red" />
-                </mesh>
+                </mesh> */}
         </Environment>
         <ContactShadows 
-            position={ [ 0, - 0.99, 0 ] }
+            position={ [ 0, 0, 0 ] }
             scale={10}
             resolution={512}
             far={5}
@@ -95,17 +100,17 @@ export default function Experience()
         </AccumulativeShadows> */}
         <ambientLight intensity={ 5 } />
 
-        <mesh castShadow position-x={ - 2 }>
+        <mesh castShadow position-y={ 1 } position-x={ - 2 }>
             <sphereGeometry />
             <meshStandardMaterial color="orange" />
         </mesh>
 
-        <mesh castShadow ref={ cube } position-x={ 2 } scale={ 1.5 }>
+        <mesh castShadow ref={ cube } position-y={ 1 } position-x={ 2 } scale={ 1.5 }>
             <boxGeometry />
             <meshStandardMaterial color="mediumpurple" />
         </mesh>
 
-        <mesh receiveShadow position-y={ - 1 } rotation-x={ - Math.PI * 0.5 } scale={ 10 }>
+        <mesh receiveShadow position-y={ 0 } rotation-x={ - Math.PI * 0.5 } scale={ 10 }>
             <planeGeometry />
             <meshStandardMaterial color="greenyellow" />
         </mesh>
