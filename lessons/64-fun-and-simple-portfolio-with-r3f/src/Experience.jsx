@@ -1,10 +1,14 @@
 import { Text, Html, ContactShadows, PresentationControls, Float, Environment, useGLTF, OrbitControls } from '@react-three/drei'
+import { useControls } from 'leva'
 
 export default function Experience()
 {
     const macbook = useGLTF('https://threejs-journey.com/resources/models/macbook_model.gltf')
+    const { position } = useControls( {position: [ 0, -0.65 ,0 ] } )
+    const { scale } = useControls( {scale: 1 } )
     return <>
 
+        {/* <OrbitControls makeDefault /> */}
         <Environment preset="city" />
 
         <color
@@ -14,10 +18,11 @@ export default function Experience()
         <PresentationControls
             global
             rotation={ [ 0.13, 0.1, 0]}
-            polar={ [ -0.4, 0.2 ]}
-            azimuth={ [ -1, 0.75 ]}
-            config={ {mass: 2, tension: 400 }}
-            snap={ { mass: 4, tension: 400 } }>
+            // polar={ [ -0.4, 0.2 ]}
+            // azimuth={ [ -1, 0.75 ]}
+            // config={ {mass: 2, tension: 400 }}
+            // snap={ { mass: 4, tension: 400 } }
+            >
             <Float rotationIntensity={ 0.4 }>
                 <rectAreaLight
                     width={ 2.5 }
@@ -48,7 +53,19 @@ export default function Experience()
                     maxWidth={ 2 }
                     >meoflaxz
                 </Text>
-                
+
+                <Text
+                    // position={position }
+                    scale={ 0.5 }
+                    // font="./bangers-v20-latin-regular.woff"
+                    fontSize={0.1}
+                    position={ [ 1.07, - 0.67 ,-0.35 ] }
+                    // rotation-y={ - 1.25 }
+                    // maxWidth={ 2 }
+                    rotation-x={ - 1.6 }
+                    >ENTER
+                </Text>
+
             </Float>
         </PresentationControls>
 
