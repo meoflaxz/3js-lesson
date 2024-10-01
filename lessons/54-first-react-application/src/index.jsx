@@ -1,11 +1,14 @@
 import './style.css'
+import App from './App.jsx'
+import Clicker from './Clicker.jsx'
 import { createRoot } from 'react-dom/client'
 
 const root = createRoot(document.querySelector('#root'))
 
+const toto = 'tata'
 root.render(
     <div>
-        <h1>Hello React</h1>
-        <p>Some content</p>
+        <App/>
+        <Clicker/>
     </div>
 )
