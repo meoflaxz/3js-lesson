@@ -7,16 +7,16 @@ export default function Experience()
     return <>
         <EffectComposer>
             <ToneMapping mode={ ToneMappingMode.ACES_FILMIC } />
-            {/* <Vignette
+            <Vignette
                 offset={ 0.3 }
                 darkness={ 0.5 }
-                blendFunction={ BlendFunction.NORMAL }/> */}
-            {/* <Glitch
+                blendFunction={ BlendFunction.NORMAL }/>
+            <Glitch
                 delay={ [ 0.5, 1 ] }
                 duration={ [ 0.1, 0.3 ] }
                 strength={ [ 0.2, 0.4 ] }
                 mode={ GlitchMode.CONSTANT_MILD}
-            /> */}
+            />
             < Noise
                 premultiply
                 blendFunction={ BlendFunction.SOFT_LIGHT}/>
