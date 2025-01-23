@@ -1,4 +1,4 @@
-import { OrbitControls } from '@react-three/drei'
+import { OrbitControls } from '@react-three/drei' 
 import { Perf } from 'r3f-perf'
 import { Noise, Glitch, ToneMapping,Vignette, EffectComposer } from '@react-three/postprocessing'
 import {  GlitchMode, BlendFunction, ToneMappingMode } from 'postprocessing'
